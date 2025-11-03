@@ -1,7 +1,8 @@
 package com.example.pelanggaransiswa.entity
 
-class Siswa {
-    val nis: String = ""
-    val nama_lengkap: String = ""
+// Tambahkan "data" di depan class
+data class Siswa(
+    val nis: String = "",
+    val nama_lengkap: String = "",
     val kelas: String = ""
-}
+)

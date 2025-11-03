@@ -57,7 +57,8 @@ dependencies {
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
-    implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0") // <-- GANTI INI
+// GANTI DENGAN BARIS INI:
+    implementation("com.google.firebase:firebase-firestore")
 }
