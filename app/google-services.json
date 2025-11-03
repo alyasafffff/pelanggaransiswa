@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "958254478091",
+    "project_id": "pelanggaransiswa-7e4a4",
+    "storage_bucket": "pelanggaransiswa-7e4a4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958254478091:android:236e65d6f8e6aa4a6b280e",
+        "android_client_info": {
+          "package_name": "com.example.pelanggaransiswa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2mx09J3zJe1BJDFSLo-s7_m5umwTs-bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
