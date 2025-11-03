@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     // 1. Setup Binding dan Firebase
+    // --- PERBAIKAN DI SINI ---
     private lateinit var binding: ActivityMainBinding
     private lateinit var credentialManager: CredentialManager
     private lateinit var auth: FirebaseAuth
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Inisialisasi Firebase Auth dan Credential Manager
-        // (Meniru todolist/MainActivity.kt)
+        // (Dependensi ini ada di build.gradle.kts)
         credentialManager = CredentialManager.create(this)
         auth = Firebase.auth
 
@@ -45,16 +46,14 @@ class MainActivity : AppCompatActivity() {
 
     // 2. Setup Tombol Klik
     fun setupEvents() {
-        // ID tombol disesuaikan dengan layout pelanggaransiswa
-        // (activity_main.xml)
+        // ID tombol dari activity_main.xml
         binding.btnSignInGoogle.setOnClickListener {
             updateUI(true) // Tampilkan loading
             loginWithGoogle()
         }
     }
 
-    // 3. Logika Login (Sama seperti todolist/MainActivity.kt)
-    //
+    // 3. Logika Login
     fun loginWithGoogle() {
         val request = prepareGoogleSigninRequest()
 
@@ -68,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             } catch (e: GetCredentialException) {
                 updateUI(false) // Sembunyikan loading
                 Log.e("GOOGLE_SIGNIN", "Gagal mendapatkan kredensial: ${e.localizedMessage}")
+                Toast.makeText(this@MainActivity, "Login Gagal: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -75,19 +75,17 @@ class MainActivity : AppCompatActivity() {
     // 4. Persiapan Request Google Signin
     fun prepareGoogleSigninRequest(): GetCredentialRequest {
         val googleIdOption = GetGoogleIdOption.Builder()
-            // Gunakan ID Klien dari strings.xml Anda
-            //
             .setServerClientId(getString(R.string.clientId))
             .setFilterByAuthorizedAccounts(false)
             .build()
+
 
         return GetCredentialRequest.Builder()
             .addCredentialOption(googleIdOption)
             .build()
     }
 
-    // 5. Menangani Hasil Signin (Sama seperti todolist/MainActivity.kt)
-    //
+    // 5. Menangani Hasil Signin
     private fun handleSignin(credential: Credential) {
         val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
         val credentialGoogle = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
@@ -106,14 +104,13 @@ class MainActivity : AppCompatActivity() {
 
     // 6. Pindah Halaman (Disesuaikan ke SiswaActivity)
     fun goToSiswaActivity() {
-        // Arahkan ke SiswaActivity, bukan TodoActivity
+        // Arahkan ke SiswaActivity
         val intent = Intent(this, SiswaActivity::class.java)
         startActivity(intent)
-        finish() // Tutup MainActivity
+        finish() // Tutup MainActivity agar tidak bisa kembali
     }
 
-    // 7. Cek Login (Sama seperti todolist/MainActivity.kt)
-    //
+    // 7. Cek Login saat onStart (jika user sudah login)
     override fun onStart() {
         super.onStart()
         // Cek apakah user sudah login
@@ -124,6 +121,7 @@ class MainActivity : AppCompatActivity() {
 
     // 8. Helper untuk Loading UI
     private fun updateUI(isLoading: Boolean) {
+        // ID ProgressBar dan Tombol dari activity_main.xml
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
             binding.btnSignInGoogle.visibility = View.GONE
