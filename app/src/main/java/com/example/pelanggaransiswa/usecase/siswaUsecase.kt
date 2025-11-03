@@ -1,6 +1,6 @@
 package com.example.pelanggaransiswa.usecase
 
-import com.example.pelanggaransiswa.entity.siswa
+import com.example.pelanggaransiswa.entity.Siswa
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query

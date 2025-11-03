@@ -1,6 +1,6 @@
 package com.example.pelanggaransiswa.entity
 
-class siswa {
+class Siswa {
     val nis: String = ""
     val nama_lengkap: String = ""
     val kelas: String = ""
