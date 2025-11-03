@@ -13,6 +13,12 @@
         android:theme="@style/Theme.PelanggaranSiswa"
         tools:targetApi="31">
         <activity
+            android:name=".SiswaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".siswa"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
