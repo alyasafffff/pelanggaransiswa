@@ -33,14 +33,13 @@ class SiswaActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // Muat data setiap kali activity/fragment terlihat
         loadDataSiswa()
     }
 
     private fun registerEvents() {
         binding.fabTambahSiswa.setOnClickListener {
-//            val intent = Intent(this, CreateSiswaActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, CreateSiswaActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -72,10 +71,10 @@ class SiswaActivity : AppCompatActivity() {
 
             // Event Edit
             override fun onEdit(siswa: Siswa) {
-//                val intent = Intent(this@SiswaActivity, EditSiswaActivity::class.java)
-//                // Kirim NIS sebagai key untuk di-edit
-//                intent.putExtra("SISWA_NIS", siswa.nis)
-//                startActivity(intent)
+                val intent = Intent(this@SiswaActivity, UpdateSiswaActivity::class.java)
+                // Kirim NIS sebagai key untuk di-edit
+                intent.putExtra("SISWA_NIS", siswa.nis)
+                startActivity(intent)
             }
         })
         binding.rvSiswa.apply {
