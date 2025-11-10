@@ -12,6 +12,9 @@ import com.example.pelanggaransiswa.adapter.SiswaAdapter
 import com.example.pelanggaransiswa.databinding.ActivitySiswaBinding
 import com.example.pelanggaransiswa.entity.Siswa
 import com.example.pelanggaransiswa.usecase.SiswaUsecase
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
 
 class SiswaActivity : AppCompatActivity() {
@@ -19,6 +22,7 @@ class SiswaActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySiswaBinding
     private lateinit var siswaAdapter: SiswaAdapter
     private lateinit var siswaUsecase: SiswaUsecase
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class SiswaActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         siswaUsecase = SiswaUsecase()
+        auth = Firebase.auth
 
         setupRecyclerView()
         registerEvents()
@@ -41,6 +46,35 @@ class SiswaActivity : AppCompatActivity() {
             val intent = Intent(this, CreateSiswaActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnLogout.setOnClickListener {
+            // Tampilkan dialog konfirmasi
+            AlertDialog.Builder(this@SiswaActivity)
+                .setTitle("Konfirmasi Logout")
+                .setMessage("Apakah Anda yakin ingin keluar?")
+                .setPositiveButton("Ya, Logout") { dialog, _ ->
+                    // Panggil fungsi logout
+                    prosesLogout()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Batal") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+    }
+
+    private fun prosesLogout() {
+        // Sign out dari Firebase
+        auth.signOut()
+
+        // Pindah kembali ke MainActivity (halaman login)
+        val intent = Intent(this, MainActivity::class.java)
+        // Tambahkan flags untuk membersihkan riwayat activity
+        // sehingga pengguna tidak bisa kembali ke SiswaActivity dengan tombol "Back"
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish() // Tutup SiswaActivity
     }
 
     private fun setupRecyclerView() {
